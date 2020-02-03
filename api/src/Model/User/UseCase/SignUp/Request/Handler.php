@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Api\Model\User\UseCase\Signup\Request;
+namespace Api\Model\User\UseCase\SignUp\Request;
 
 
+use Api\Model\EventDispatcher;
 use Api\Model\Flusher;
 use Api\Model\User\Entity\User\Email;
 use Api\Model\User\Entity\User\User;
@@ -12,6 +13,14 @@ use Api\Model\User\Entity\User\UserRepository;
 use Api\Model\User\Service\ConfirmTokenizer;
 use Api\Model\User\Service\PasswordHasher;
 
+/**
+ * Class Handler
+ * @package Api\Model\User\UseCase\SignUp\Request
+ * @property UserRepository $users
+ * @property PasswordHasher $hasher
+ * @property ConfirmTokenizer $tokenizer
+ * @property Flusher $flusher
+ */
 class Handler
 {
 
@@ -45,5 +54,6 @@ class Handler
         $this->users->add($user);
 
         $this->flusher->flush();
+
     }
 }

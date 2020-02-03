@@ -1,3 +1,5 @@
 !cache
 !cache/.gitkeep
 !.gitignore
+log
+!log/.gitkeep

@@ -2,6 +2,10 @@
 
 namespace Api\Model\User\Entity\User;
 
+use Api\Model\AggregateRoot;
+use Api\Model\EventTrait;
+use Api\Model\User\Entity\User\Event\UserConfirmed;
+use Api\Model\User\Entity\User\Event\UserCreated;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
@@ -10,8 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     @ORM\UniqueConstraint(columns={"email"})
  * })
  */
-class User
+class User implements AggregateRoot
 {
+    use EventTrait;
     private const STATUS_WAIT = 'wait';
     private const STATUS_ACTIVE ='active';
 
@@ -50,6 +55,7 @@ class User
         $this->passwordHash=$hash;
         $this->confirmToken=$confirmToken;
         $this->status=self::STATUS_WAIT;
+        $this->recordEvent(new UserCreated($this->id, $this->email, $this->confirmToken));
     }
 
 
@@ -83,7 +89,7 @@ class User
         return $this->confirmToken;
     }
 
-    public function confirmSignup(string $token, \DateTimeImmutable $date): void
+    public function confirmSignUp(string $token, \DateTimeImmutable $date): void
     {
         if ($this->isActive()) {
             throw new \DomainException('User is already active.');
@@ -92,6 +98,7 @@ class User
 
         $this->status = self::STATUS_ACTIVE;
         $this->confirmToken = null;
+        $this->recordEvent(new UserConfirmed($this->id));
     }
 
     /**

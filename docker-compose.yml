@@ -23,21 +23,23 @@ services:
     - ./api:/var/www.api
     depends_on:
         - api-postgres
+        - mailer
     ports:
     - "8081:80"
   api-php-fpm:
     build:
       context: ./api/docker
       dockerfile: php-fpm.docker
-    environment:
-      XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
-      PHP_IDE_CONFIG: "serverName=services"
+
     volumes:
     - ./api:/var/www/api
   api-php-cli:
     build:
       context: ./api/docker
       dockerfile: php-cli.docker
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=services"
     volumes:
       - ./api:/var/www/api
     depends_on:
@@ -54,3 +56,9 @@ services:
       - "POSTGRES_DB=api"
     ports:
       - "54321:5432"
+  mailer:
+    image: mailhog/mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8082:8025"
