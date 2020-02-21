@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap-vue": "^2.1.0",
+    "jwt-decode": "^2.2.0",
     "@fortawesome/fontawesome-free": "^5.3.1",
     "core-js": "^3.4.4",
     "vue": "^2.6.10",
@@ -41,7 +42,7 @@
       "eslint:recommended"
     ],
     "rules": {},
-    "no-console":"on",
+    "no-console": "on",
     "parserOptions": {
       "parser": "babel-eslint"
     }

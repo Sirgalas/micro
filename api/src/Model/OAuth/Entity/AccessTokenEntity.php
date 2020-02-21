@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Api\Model\OAuth\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+use Lcobucci\JWT\Token;
+use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
@@ -48,4 +53,5 @@ class AccessTokenEntity implements AccessTokenEntityInterface
      * @ORM\Column(type="oauth_scopes")
      */
     protected $scopes = [];
+
 }

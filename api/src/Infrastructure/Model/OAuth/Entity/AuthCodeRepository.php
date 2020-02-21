@@ -58,6 +58,7 @@ class AuthCodeRepository implements AuthCodeRepositoryInterface
                 ->select('COUNT(t.identifier)')
                 ->andWhere('t.identifier = :identifier')
                 ->setParameter(':identifier', $id)
-                ->getQuery()->getSingleScalarResult() > 0;
+                ->getQuery()
+                ->getSingleScalarResult() > 0;
     }
 }

@@ -64,6 +64,6 @@ class AuthTest extends WebTestCase
             'client_secret' => '',
         ]);
 
-        self::assertEquals(401, $response->getStatusCode());
+        self::assertEquals(400, $response->getStatusCode());
     }
 }
