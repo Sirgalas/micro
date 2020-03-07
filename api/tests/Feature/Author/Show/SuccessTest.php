@@ -1,17 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Api\Test\Feature\Profile;
+namespace Api\Test\Feature\Author\Show;
 
 use Api\Test\Feature\AuthFixture;
 use Api\Test\Feature\WebTestCase;
 
-class ShowTest extends WebTestCase
+class SuccessTest extends WebTestCase
 {
     protected function setUp(): void
     {
         $this->loadFixtures([
             'auth' => AuthFixture::class,
+            'author' => Fixture::class,
         ]);
 
         parent::setUp();
@@ -19,25 +21,23 @@ class ShowTest extends WebTestCase
 
     public function testGuest(): void
     {
-        $response = $this->get('/profile');
+        $response = $this->get('/author');
         self::assertEquals(401, $response->getStatusCode());
     }
 
     public function testSuccess(): void
     {
-        $fixture = $this->getAuth();
-
-        $response = $this->get('/profile', $fixture->getHeaders());
+        $auth = $this->getAuth();
+        $response = $this->get('/author', $auth->getHeaders());
 
         self::assertEquals(200, $response->getStatusCode());
-
         self::assertJson($content = $response->getBody()->getContents());
 
         $data = json_decode($content, true);
 
         self::assertEquals([
-            'id' => $fixture->getUser()->getId()->getId(),
-            'email' => $fixture->getUser()->getEmail()->getEmail(),
+            'id' => $auth->getUser()->getId()->getId(),
+            'name' => 'Test Author',
         ], $data);
     }
 
@@ -46,3 +46,4 @@ class ShowTest extends WebTestCase
         return $this->getFixture('auth');
     }
 }
+

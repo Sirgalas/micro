@@ -33,7 +33,7 @@ return [
     },
     'config' => [
         'doctrine' => [
-            'dev_mode' => false,
+            'dev_mode' => true,
             'cache_dir' => 'var/cache/doctrine',
             'metadata_dirs' => [
                 'src/Model/User/Entity',

@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Api\Test\Feature\Profile;
+namespace Api\Test\Feature\Author\Create;
 
 use Api\Test\Feature\AuthFixture;
 use Api\Test\Feature\WebTestCase;
 
-class ShowTest extends WebTestCase
+class SuccessTest extends WebTestCase
 {
     protected function setUp(): void
     {
@@ -19,25 +20,26 @@ class ShowTest extends WebTestCase
 
     public function testGuest(): void
     {
-        $response = $this->get('/profile');
+        $response = $this->get('/author');
         self::assertEquals(401, $response->getStatusCode());
     }
 
     public function testSuccess(): void
     {
-        $fixture = $this->getAuth();
+        $auth = $this->getAuth();
 
-        $response = $this->get('/profile', $fixture->getHeaders());
+        $response = $this->post('/author/create', [
+            'name' => $name = 'Name'
+        ], $auth->getHeaders());
 
-        self::assertEquals(200, $response->getStatusCode());
-
+        self::assertEquals(201, $response->getStatusCode());
         self::assertJson($content = $response->getBody()->getContents());
 
         $data = json_decode($content, true);
 
         self::assertEquals([
-            'id' => $fixture->getUser()->getId()->getId(),
-            'email' => $fixture->getUser()->getEmail()->getEmail(),
+            'id' => $auth->getUser()->getId()->getId(),
+            'name' => $name,
         ], $data);
     }
 

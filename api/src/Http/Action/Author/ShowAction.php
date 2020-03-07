@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Api\Http\Action\Profile;
+namespace Api\Http\Action\Author;
 
-use Api\ReadModel\User\UserReadRepository;
+use Api\ReadModel\Video\AuthorReadRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -12,22 +12,22 @@ use Laminas\Diactoros\Response\JsonResponse;
 
 class ShowAction implements RequestHandlerInterface
 {
-    private $users;
+    private $authors;
 
-    public function __construct(UserReadRepository $users)
+    public function __construct(AuthorReadRepository $authors)
     {
-        $this->users = $users;
+        $this->authors = $authors;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        if (!$user = $this->users->find($request->getAttribute('oauth_user_id'))) {
-            return new JsonResponse([], 404);
+        if (!$author = $this->authors->find($request->getAttribute('oauth_user_id'))) {
+            return new JsonResponse([], 204);
         }
 
         return new JsonResponse([
-            'id' => $user->getId()->getId(),
-            'email' => $user->getEmail()->getEmail(),
+            'id' => $author->getId()->getId(),
+            'name' => $author->getName(),
         ]);
     }
 }

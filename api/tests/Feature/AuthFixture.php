@@ -44,6 +44,7 @@ class AuthFixture extends AbstractFixture
 
         $manager->flush();
 
+        $this->addReference('user', $user);
 
         $this->token = $token-> __toString();
     }

@@ -1,17 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Api\Test\Feature\Profile;
+namespace Api\Test\Feature\Author\Create;
 
 use Api\Test\Feature\AuthFixture;
 use Api\Test\Feature\WebTestCase;
 
-class ShowTest extends WebTestCase
+class ExistsTest extends WebTestCase
 {
     protected function setUp(): void
     {
         $this->loadFixtures([
             'auth' => AuthFixture::class,
+            'author' => Fixture::class,
         ]);
 
         parent::setUp();
@@ -19,25 +21,25 @@ class ShowTest extends WebTestCase
 
     public function testGuest(): void
     {
-        $response = $this->get('/profile');
+        $response = $this->get('/author');
         self::assertEquals(401, $response->getStatusCode());
     }
 
-    public function testSuccess(): void
+    public function testError(): void
     {
-        $fixture = $this->getAuth();
+        $auth = $this->getAuth();
 
-        $response = $this->get('/profile', $fixture->getHeaders());
+        $response = $this->post('/author/create', [
+            'name' => 'Name'
+        ], $auth->getHeaders());
 
-        self::assertEquals(200, $response->getStatusCode());
-
+        self::assertEquals(400, $response->getStatusCode());
         self::assertJson($content = $response->getBody()->getContents());
 
         $data = json_decode($content, true);
 
         self::assertEquals([
-            'id' => $fixture->getUser()->getId()->getId(),
-            'email' => $fixture->getUser()->getEmail()->getEmail(),
+            'error' => 'Author already exists.',
         ], $data);
     }
 
@@ -46,3 +48,4 @@ class ShowTest extends WebTestCase
         return $this->getFixture('auth');
     }
 }
+
