@@ -22,6 +22,7 @@
 
 <script>
     import Nav from '@/components/Nav.vue'
+    import Notifications from '@/components/Notifications.vue'
     export default {
         components: {
             Nav,

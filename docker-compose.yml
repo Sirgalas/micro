@@ -99,7 +99,7 @@ services:
     volumes:
       - ./websocket:/var/www/websocket
     ports:
-      - "8084:8101"
+      - "8084:8000"
     working_dir: /var/www/websocket
     tty: true
 
