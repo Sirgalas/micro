@@ -6,10 +6,10 @@ import store from './store'
 import axios from 'axios'
 
 Vue.config.productionTip = false;
-
+5
 axios.defaults.baseURL = 'http://127.0.0.1:8081';
 
-let user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 if (user) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.access_token;
 }
@@ -37,6 +37,27 @@ axios.interceptors.response.use(null, error => {
         return Promise.reject(error)
       });
 });
+
+const socket = new WebSocket(process.env.VUE_APP_WS_URL);
+socket.onopen = function() {
+  if (user) {
+    socket.send(JSON.stringify({
+      type: 'auth',
+      token: user.access_token
+    }));
+  }
+};
+
+socket.onmessage = function(event) {
+  alert('Received: ' + event.data);
+  let data = JSON.parse(event.data);
+  console.log(data);
+  if (data.type === 'notification') {
+    store.commit('addNotification', data.message);
+  }
+};
+
+
 
 Vue.use(BootstrapVue);
 

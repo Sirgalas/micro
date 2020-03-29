@@ -1,29 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@Sirgalas
-ElisDN /
-rabbit-demo-spa
-
-5
-16
-
-22
-
-Code
-Issues 0
-Pull requests 0
-Actions
-Projects 0
-Wiki
-Security
-Insights
-rabbit-demo-spa/frontend/src/views/Login.vue
-@ElisDN ElisDN Added frontend login cd37e95 on 17 Oct 2018
-58 lines (56 sloc) 1.55 KB
 <template>
     <div class="row">
         <div class="col-md-6">

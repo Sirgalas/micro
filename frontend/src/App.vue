@@ -7,6 +7,7 @@
         <div class="app-content">
             <main class="container">
                 <router-view/>
+                <Notifications/>
             </main>
         </div>
         
@@ -23,7 +24,8 @@
     import Nav from '@/components/Nav.vue'
     export default {
         components: {
-            Nav
+            Nav,
+            Notifications
         }
     }
 </script>

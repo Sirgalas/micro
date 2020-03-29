@@ -27,7 +27,6 @@ class SuccessTest extends WebTestCase
     public function testSuccess(): void
     {
         $auth = $this->getAuth();
-
         $response = $this->post('/author/create', [
             'name' => $name = 'Name'
         ], $auth->getHeaders());
