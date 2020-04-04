@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Api\Infrastructure\Model\EventDispatcher\Listener;
 use Api\Infrastructure\EventDispatcher\SyncEventDispatcher;
 use Psr\Container\ContainerInterface;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Api\Model\User as UserModel;
 use Api\Model\Video as VideoModel;
 
@@ -30,7 +31,7 @@ return [
     },
     Listener\Video\VideoCreatedListener::class => function (ContainerInterface $container) {
         return new Listener\Video\VideoCreatedListener(
-            $container->get(Kafka\Producer::class)
+            $container->get(AMQPStreamConnection::class)
         );
     },
 ];

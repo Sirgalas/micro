@@ -4,6 +4,7 @@
                 show dismissible
                 variant="primary"
                 v-for="(notification, index) in notifications"
+                :key=index
                 @dismissed="close(index)"
         >
             {{ notification }}
@@ -12,11 +13,12 @@
 </template>
 
 <script>
-    import axios from "axios";
+    //import axios from "axios";
     export default {
         name: 'Notifications',
         computed: {
             notifications() {
+                console.log( this.$store.state.notifications)
                 return this.$store.state.notifications;
             }
         },

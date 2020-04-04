@@ -32,8 +32,6 @@
 <script>
   export default {
     name: 'Nav',
-  
-  
     methods: {
       logout(event) {
         event.preventDefault();

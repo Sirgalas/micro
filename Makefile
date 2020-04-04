@@ -1,6 +1,7 @@
 up: docker-up
 
 init: docker-clear docker-up api-permissions api-env api-composer api-genrsa pause api-migration api-fixtures frontend-env frontend-install frontend-build storage-permissions websocket-env websocket-key websocket-install websocket-start
+reinit: docker-clear docker-up api-permissions  api-genrsa pause api-migration api-fixtures frontend-env frontend-install frontend-build storage-permissions websocket-env websocket-key websocket-install websocket-start
 
 docker-clear:
 	docker-compose down --remove-orphans

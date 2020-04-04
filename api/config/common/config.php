@@ -29,6 +29,11 @@ return [
             ),
             false
         );
+        var_dump(EntityManager::create(
+            $params['connection'],
+            $config
+        ));
+        exit();
         return EntityManager::create(
             $params['connection'],
             $config

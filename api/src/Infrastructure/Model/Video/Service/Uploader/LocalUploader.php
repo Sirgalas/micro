@@ -20,6 +20,7 @@ class LocalUploader implements Uploader
     public function upload(UploadedFileInterface $file): string
     {
         $filename = $this->generateName($file);
+
         $file->moveTo($this->path . '/' . $filename);
         return $filename;
     }

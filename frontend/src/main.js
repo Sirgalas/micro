@@ -53,6 +53,7 @@ socket.onmessage = function(event) {
   console.log(data);
   if (data.type === 'notification') {
     store.commit('addNotification', data.message);
+    console.log(store);
   }
 };
 

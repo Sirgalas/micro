@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Api\Http\VideoUrl;
 use Api\Infrastructure\Model\Video\Service\Processor\Converter\FFMpegMp4Converter;
 use Api\Infrastructure\Model\Video\Service\Processor\Converter\FFMpegWebmConverter;
 use Api\Infrastructure\Model\Video\Service\Processor\FormatDetector\FFProbeFormatDetector;
